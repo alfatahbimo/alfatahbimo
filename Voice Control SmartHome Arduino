@@ -1,0 +1,209 @@
+String voice;
+int leddimmer1 = 5; //kamar 1
+int leddimmer2 = 11; //kamar2
+int ledPin = 9; //kamar3
+#include <Servo.h>
+Servo atap;
+
+void setup() {
+// put your setup code here, to run once:
+  Serial.begin(9600);
+  pinMode(2, OUTPUT); //tengah
+  pinMode(4, OUTPUT); //teras
+  pinMode(5, OUTPUT); //garasi
+  pinMode(6, OUTPUT); //kipas kamar 3
+  pinMode(7, OUTPUT); //kipas kamar 1
+  pinMode(8, OUTPUT); //kipas kamar 2
+  pinMode(12, OUTPUT);//kamar mandi
+  atap.attach(3);
+}
+
+void loop() {
+// put your main code here, to run repeatedly:
+  while (Serial.available()) {
+    delay(10);
+    char c = Serial.read();
+    voice += c;
+  }
+  if (voice.length() > 0) {
+    Serial.println(voice);
+
+    if ( voice == "lampu ruang tengah hidup")
+    {
+      digitalWrite(2, HIGH);
+      delay(10);
+      Serial.println(voice);
+    }
+    
+  if ( voice == "lampu ruang tengah mati")
+  {
+    digitalWrite(2, LOW);
+    delay(10);
+    Serial.println(voice);
+  }
+
+  if ( voice == "buka atap")
+   {
+    atap.write(0);
+    delay(10);
+    Serial.println(voice);
+   }
+   
+   if ( voice == "tutup atap")
+   {
+    atap.write(62);
+    delay(10);
+    Serial.println(voice);
+    }
+
+    if ( voice == "lampu teras hidup")
+    {
+    digitalWrite(4, HIGH);
+    delay(10);
+    Serial.println(voice);
+    }
+    
+    if ( voice == "lampu teras mati")
+    {
+      digitalWrite(4, LOW);
+      delay(10);
+      Serial.println(voice);
+    }
+
+    if ( voice == "lampu Garasi Hidup")
+    {
+    digitalWrite(10, HIGH);
+    delay(10);
+    Serial.println(voice);
+    }
+    
+    if ( voice == "lampu garasi mati")
+    {
+    digitalWrite(10, LOW);
+    delay(10);
+    Serial.println(voice);
+    }
+
+    if ( voice == "kipas kamar 3 hidup")
+    {
+    digitalWrite(6, HIGH);
+    delay(10);
+    Serial.println(voice);
+    }
+
+    if ( voice == "kipas kamar 3 mati")
+    {
+    digitalWrite(6, LOW);
+    delay(10);
+    Serial.println(voice);
+    }
+
+    if (voice == "kipas kamar 1 Hidup")
+    {
+    digitalWrite(7, HIGH);
+    delay(10);
+    Serial.println(voice);
+    }
+
+    if (voice == "kipas kamar satu mati")
+    {
+    digitalWrite(7, LOW);
+    delay(10);
+    Serial.println(voice);
+    }
+    
+    if ( voice == "kipas kamar dua hidup")
+    {
+    digitalWrite(8, HIGH);
+    delay(10);
+    Serial.println(voice);
+    }
+    
+    if ( voice == "kipas kamar dua mati")
+    {
+    digitalWrite(8, LOW);
+    delay(10);
+    Serial.println(voice);
+    }
+    
+    if ( voice == "lampu kamar tiga hidup terang")
+    {
+    analogWrite(ledPin, 255);
+    delay(10);
+    Serial.println(voice);
+    }
+    
+    if ( voice == "lampu kamar 3 hidup redup")
+    {
+    leddimmer3();
+    Serial.println(voice);
+    }
+    
+    if ( voice == "lampu kamar 3 mati")
+    {
+    analogWrite(ledPin, 0);
+    delay(10);
+    Serial.println(voice);
+    }
+
+    if ( voice == "lampu kamar 1 Hidup terang")
+    {
+    analogWrite(leddimmer1, 255);
+    delay(10);
+    Serial.println(voice);
+    }
+    
+    if ( voice == "lampu kamar 1 Hidup redup")
+    {
+    analogWrite(leddimmer1, 102);
+    delay(10);
+    Serial.println(voice);
+    }
+    
+    if ( voice == "lampu kamar satu mati")
+    {
+    analogWrite(leddimmer1, 0);
+    delay(10);
+    Serial.println(voice);
+    }
+    
+    if ( voice == "lampu kamar dua hidup terang")
+    {
+    analogWrite(leddimmer2, 255);
+    delay(10);
+    Serial.println(voice);
+    }
+    
+    if ( voice == "lampu kamar dua hidup redup")
+    {
+    analogWrite(leddimmer2, 102);
+    delay(10);
+    Serial.println(voice);
+    }
+    if ( voice == "lampu kamar dua mati")
+    {
+    analogWrite(leddimmer2, 0);
+    delay(10);
+    Serial.println(voice);
+    }
+    
+    if ( voice == "lampu kamar mandi hidup")
+    {
+    digitalWrite(12, HIGH);
+    delay(10);
+    Serial.println(voice);
+    }
+    
+    if ( voice == "lampu kamar mandi mati")
+    {
+    digitalWrite(12, LOW);
+    delay(10);
+    Serial.println(voice);
+    }
+  voice = "";
+  }
+}
+
+void leddimmer3 () {
+analogWrite(ledPin, 102);
+}
